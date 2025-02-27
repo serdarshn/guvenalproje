@@ -8,9 +8,6 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['var(--font-outfit)'],
-      },
       colors: {
         primary: {
           DEFAULT: '#F6A546',
@@ -45,6 +42,14 @@ export default {
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+      },
+      backgroundImage: {
+        'grid-pattern': "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+        'grid-pattern-sm': "linear-gradient(to right, currentColor 0.5px, transparent 0.5px), linear-gradient(to bottom, currentColor 0.5px, transparent 0.5px)",
+      },
+      backgroundSize: {
+        'grid': '24px 24px',
+        'grid-sm': '16px 16px',
       },
     },
   },

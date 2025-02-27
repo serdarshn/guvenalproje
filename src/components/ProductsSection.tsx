@@ -5,7 +5,138 @@ import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
-import { categories } from '@/data/products';
+
+// Kategoriler
+const categories = [
+  {
+    id: 'cnc-double-kolon',
+    name: 'CNC Double Kolon Dik İşleme Merkezi',
+    slug: 'cnc-double-kolon',
+    subcategories: [
+      { name: 'CNC Double Kolon', slug: 'cnc-double-kolon' }
+    ]
+  },
+  {
+    id: 'dalma-erozyon',
+    name: 'Dalma Erozyon Tezgahları',
+    slug: 'dalma-erozyon',
+    subcategories: [
+      { name: 'BEST EDM', slug: 'best-edm' },
+      { name: 'KING EDM', slug: 'king-edm' },
+      { name: 'ÇİFT KAFALI DALMA EREZYON', slug: 'cift-kafali-dalma-erezyon' }
+    ]
+  },
+  {
+    id: 'kalipci-freze',
+    name: 'Kalıpçı Freze Tezgahları',
+    slug: 'kalipci-freze',
+    subcategories: [
+      { name: 'KİNG', slug: 'king' },
+      { name: 'JETCO', slug: 'jetco' },
+      { name: 'KG SUPER', slug: 'kg-super' }
+    ]
+  },
+  {
+    id: 'universal-kalipci-freze',
+    name: 'Üniversal Kalıpçı Freze Tezgahları',
+    slug: 'universal-kalipci-freze',
+    subcategories: [
+      { name: 'KİNG', slug: 'king' },
+      { name: 'KİNG YSM', slug: 'king-ysm' },
+      { name: 'KG SUPER', slug: 'kg-super' }
+    ]
+  },
+  {
+    id: 'koc-kafa-universal-freze',
+    name: 'Koç Kafa Universal Freze',
+    slug: 'koc-kafa-universal-freze',
+    subcategories: []
+  },
+  {
+    id: 'taslama',
+    name: 'Taşlama Tezgahları',
+    slug: 'taslama',
+    subcategories: [
+      { name: 'KİNG GRINDER', slug: 'king-grinder' }
+    ]
+  },
+  {
+    id: 'torna',
+    name: 'Torna Tezgahları',
+    slug: 'torna',
+    subcategories: [
+      { name: 'KING', slug: 'king' },
+      { name: 'JETCO', slug: 'jetco' },
+      { name: 'TOS', slug: 'tos' }
+    ]
+  },
+  {
+    id: 'masa-ustu-torna',
+    name: 'Masa Üstü Torna Tezgahları',
+    slug: 'masa-ustu-torna',
+    subcategories: []
+  },
+  {
+    id: 'radyal-matkap',
+    name: 'Radyal Matkap Tezgahları',
+    slug: 'radyal-matkap',
+    subcategories: [
+      { name: 'TAILIFT', slug: 'tailift' },
+      { name: 'KG SUPER', slug: 'kg-super' }
+    ]
+  },
+  {
+    id: 'sutunlu-matkap',
+    name: 'Sütunlu Matkap Tezgahları',
+    slug: 'sutunlu-matkap',
+    subcategories: [
+      { name: 'KING', slug: 'king' },
+      { name: 'JETCO', slug: 'jetco' },
+      { name: 'ŞAHİN', slug: 'sahin' },
+      { name: 'BOYKA', slug: 'boyka' }
+    ]
+  },
+  {
+    id: 'testere',
+    name: 'Testere Tezgahları',
+    slug: 'testere',
+    subcategories: [
+      { name: 'KING TYC', slug: 'king-tyc' },
+      { name: 'JETCO', slug: 'jetco' },
+      { name: 'KESMAK', slug: 'kesmak' }
+    ]
+  },
+  {
+    id: 'kilavuz-cekme',
+    name: 'Kılavuz Çekme Tezgahları',
+    slug: 'kilavuz-cekme',
+    subcategories: [
+      { name: 'KING TAPPING', slug: 'king-tapping' }
+    ]
+  },
+  {
+    id: 'makina-aksesuarlari',
+    name: 'Makina Aksesuarları',
+    slug: 'makina-aksesuarlari',
+    subcategories: [
+      { name: 'Otomatik Yağlama', slug: 'otomatik-yaglama' },
+      { name: 'Filtre', slug: 'filtre' },
+      { name: 'Alıgn Motor', slug: 'align-motor' },
+      { name: 'Manuel Yağlama', slug: 'manuel-yaglama' },
+      { name: 'Havalı Çektirme', slug: 'havali-cektirme' },
+      { name: 'Erozyon Sıvısı', slug: 'erozyon-sivisi' },
+      { name: 'Kriko', slug: 'kriko' },
+      { name: 'System 3R', slug: 'system-3r' },
+      { name: 'Pens Takımı', slug: 'pens-takimi' },
+      { name: 'Bağlama Seti', slug: 'baglama-seti' },
+      { name: 'Mengene', slug: 'mengene' },
+      { name: 'Yan Tarama Kafası', slug: 'yan-tarama-kafasi' },
+      { name: 'Dijital Sistem', slug: 'dijital-sistem' },
+      { name: 'Yük Taşıma Arabası', slug: 'yuk-tasima-arabasi' },
+      { name: 'Korumalık', slug: 'korumalik' }
+    ]
+  }
+];
 
 // Ana kategorileri grupla
 const mainCategories = [

@@ -3,12 +3,12 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function CorporatePage() {
-  const [activeTab, setActiveTab] = useState('about');
+  const [activeTab, setActiveTab] = useState('brands');
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -92,13 +92,26 @@ export default function CorporatePage() {
       </section>
 
       {/* Hakkımızda Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* Background Decoration */}
+      <section className="py-24 bg-background relative overflow-hidden">
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--color-primary),0.05),transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(var(--color-primary),0.05),transparent_50%)]"></div>
-          <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="about-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#about-grid)"/>
+            </svg>
+          </div>
         </div>
+
+        {/* Floating Dots */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
@@ -108,8 +121,8 @@ export default function CorporatePage() {
                 Hakkımızda
               </div>
               <h2 className="text-4xl lg:text-5xl font-bold text-text mb-6">
-                Endüstriyel Çözümlerde<br />
-                <span className="text-primary">Güvenilir İş Ortağınız</span>
+                Güvenal Makina <br />
+                <span className="text-primary">Güvenal Group&apos;un Güçlü Markası</span>
               </h2>
               <div className="h-1 w-20 bg-primary mx-auto"></div>
             </div>
@@ -120,7 +133,7 @@ export default function CorporatePage() {
                 <div className="relative">
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
-                      src="https://images.pexels.com/photos/3846226/pexels-photo-3846226.jpeg"
+                      src="/images/about-hero.jpg"
                       alt="Güvenal Makina Üretim"
                       fill
                       className="object-cover"
@@ -129,14 +142,37 @@ export default function CorporatePage() {
                   </div>
                   
                   {/* Floating Stats */}
-                  <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-xl">
-                    <div className="text-2xl font-bold text-primary">20+</div>
-                    <div className="text-sm text-text-light">Yıllık Tecrübe</div>
+                  <div className="absolute -bottom-4 -right-4 bg-white p-6 rounded-xl shadow-xl">
+                    <div className="text-3xl font-bold text-primary">40+</div>
+                    <div className="text-sm text-text-light">Yıllık Deneyim</div>
                   </div>
                   
-                  <div className="absolute -top-4 -left-4 bg-white p-4 rounded-xl shadow-xl">
-                    <div className="text-2xl font-bold text-primary">8+</div>
-                    <div className="text-sm text-text-light">Bölge Temsilciliği</div>
+                  <div className="absolute -top-4 -left-4 bg-white p-6 rounded-xl shadow-xl">
+                    <div className="text-3xl font-bold text-primary">150+</div>
+                    <div className="text-sm text-text-light">Uzman Personel</div>
+                  </div>
+                </div>
+
+                {/* Feature Cards */}
+                <div className="grid grid-cols-2 gap-4 mt-8">
+                  <div className="bg-white rounded-xl p-6 shadow-soft border border-primary/10 transform hover:-translate-y-1 transition-all duration-300">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div className="text-2xl font-bold text-primary">22</div>
+                    <div className="text-sm text-text-light">Yıllık CNC Deneyimi</div>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-6 shadow-soft border border-primary/10 transform hover:-translate-y-1 transition-all duration-300">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div className="text-lg font-bold text-primary">7/24</div>
+                    <div className="text-sm text-text-light">Teknik Destek</div>
                   </div>
                 </div>
               </div>
@@ -144,41 +180,44 @@ export default function CorporatePage() {
               {/* Sağ taraf - İçerik */}
               <div className="lg:col-span-7 space-y-8">
                 <div className="prose prose-lg">
-                  <div className="space-y-6">
-                    <p className="text-xl font-medium text-text leading-relaxed">
-                      2003 yılında kurulan GÜVENAL MAKİNA TİCARET VE SANAYİ LTD. ŞTİ. 13 yıldır üniversal takım tezgahları ve CNC tezgahlarının satışı konusunda siz değerli müşterilerimize hizmet vermektedir.
-                    </p>
-                    
-                    <div className="space-y-4 text-text-light">
-                      <p>
-                        Firmamız her geçen gün kendini geliştirerek ve tecrübe kazanarak sizlere daha hizmet verebilmek için şubeleşmeye başlamıştır. Bu kapsamda İkitelli bölgesinde 2008 yılında hizmete giren şubemiz bulunmaktadır.
+                  <div className="space-y-8">
+                    <div className="bg-white rounded-2xl p-8 shadow-soft border border-primary/10">
+                      <p className="text-xl font-medium text-text leading-relaxed mb-6">
+                        Güvenal Makina, Güvenal Group bünyesinde faaliyet gösteren ve takım
+                        tezgahları sektöründe öncü çözümler sunan bir markadır. 40 yılı aşkın
+                        deneyimimiz ve 150 kişilik uzman ekibimizle, sanayi üretimine yüksek kalite,
+                        yenilikçi teknoloji ve verimli çözümler sunuyoruz.
                       </p>
-                      <p>
-                        İkitelli şubemizde 2. el takas ve aynı zamanda revizyon işlemleri de yapılmaktadır.
+                      
+                      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/10 to-transparent my-6"></div>
+                      
+                      <p className="text-text-light">
+                        22 yıldır üniversal takım tezgahları ve CNC makinaları satışıyla
+                        müşterilerimizin üretim gücünü artırıyoruz. Müşterilerimize yalnızca satış
+                        sürecinde değil, 7/24 teknik servis desteği ve orijinal yedek parça temini ile de
+                        kesintisiz hizmet sunuyoruz.
                       </p>
                     </div>
 
-                    {/* Feature Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                      {/* Global Presence Card */}
-                      <div className="bg-background rounded-xl p-6 border border-primary/10">
+                    {/* Öne Çıkan Özellikler */}
+                    <div className="grid grid-cols-1 gap-6">
+                      <div className="bg-white rounded-xl p-6 shadow-soft border border-primary/10 transform hover:-translate-y-1 transition-all duration-300">
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-text mb-2">Uluslararası Takip</h3>
-                            <p className="text-text-light text-sm">
-                              Her sene düzenli olarak TAIWAN-ÇİN-İTALYA-ALMANYA gibi ülkelerdeki fuarları takip ederek yeni teknolojileri ülkemize getiriyoruz.
+                            <h3 className="text-lg font-semibold text-text mb-2">150 Kişilik Uzman Kadro</h3>
+                            <p className="text-text-light">
+                              Güçlü üretim kapasitesi ve deneyimli ekibimizle her zaman yanınızdayız
                             </p>
                           </div>
                         </div>
                       </div>
 
-                      {/* CE Certificate Card */}
-                      <div className="bg-background rounded-xl p-6 border border-primary/10">
+                      <div className="bg-white rounded-xl p-6 shadow-soft border border-primary/10 transform hover:-translate-y-1 transition-all duration-300">
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,31 +225,26 @@ export default function CorporatePage() {
                             </svg>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-text mb-2">CE Sertifikalı Ürünler</h3>
-                            <p className="text-text-light text-sm">
-                              Ülkemize sadece CE belgesine sahip ürünleri getirmekteyiz.
+                            <h3 className="text-lg font-semibold text-text mb-2">Kesintisiz Teknik Destek</h3>
+                            <p className="text-text-light">
+                              7/24 teknik servis desteği ve orijinal yedek parça tedariki ile yanınızdayız
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Location Map */}
-                    <div className="bg-background rounded-xl p-6 mt-6 border border-primary/10">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-text mb-2">Türkiye Genelinde Hizmet</h3>
-                          <p className="text-text-light">
-                            Müşterilerimize daha hızlı hizmet verebilmek için ANKARA-KONYA-İZMİR-BURSA-KAYSERİ-ADANA-TRAKYA ve BOLU bölgelerinde temsilciliklerimiz bulunmaktadır.
-                          </p>
-                        </div>
-                      </div>
+                    {/* Call to Action */}
+                    <div className="bg-primary/5 rounded-2xl p-8 border border-primary/10">
+                      <p className="text-xl font-semibold text-primary mb-4">
+                        Güvenal Makina ile üretiminize güç katın, geleceğe güvenle ilerleyin!
+                      </p>
+                      <a href="/iletisim" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary-600 transition-colors">
+                        Bizimle İletişime Geçin
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -221,12 +255,26 @@ export default function CorporatePage() {
       </section>
 
       {/* Vizyon & Misyon Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* Dekoratif Arka Plan */}
+      <section className="py-24 bg-background relative overflow-hidden">
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute left-0 top-0 w-1/3 h-full bg-primary/5 -skew-x-12 -translate-x-1/4"></div>
-          <div className="absolute right-0 bottom-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="vision-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#vision-grid)"/>
+            </svg>
+          </div>
         </div>
+
+        {/* Floating Dots */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
@@ -287,11 +335,25 @@ export default function CorporatePage() {
 
       {/* Şubelerimiz Section */}
       <section className="py-24 bg-background relative overflow-hidden">
-        {/* Background Decoration */}
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--color-primary),0.05),transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(var(--color-primary),0.05),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="branches-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#branches-grid)"/>
+            </svg>
+          </div>
         </div>
+
+        {/* Floating Dots */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
@@ -461,11 +523,26 @@ export default function CorporatePage() {
       </section>
 
       {/* Markalarımız ve Çözüm Ortaklarımız Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* Background Pattern */}
+      <section className="py-24 bg-background relative overflow-hidden">
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(var(--color-primary),0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(var(--color-primary),0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="partners-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#partners-grid)"/>
+            </svg>
+          </div>
         </div>
+
+        {/* Floating Dots */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
@@ -569,11 +646,25 @@ export default function CorporatePage() {
 
       {/* Sertifikalarımız Section */}
       <section className="py-24 bg-background relative overflow-hidden">
-        {/* Background Pattern */}
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--color-primary),0.05),transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(var(--color-primary),0.05),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="certificates-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#certificates-grid)"/>
+            </svg>
+          </div>
         </div>
+
+        {/* Floating Dots */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">

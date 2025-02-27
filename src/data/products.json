@@ -1,0 +1,429 @@
+[
+  {
+    "id": "cnc-double-kolon-dk1200",
+    "type": "products",
+    "name": "CNC Double Kolon İşleme Merkezi DK-1200",
+    "description": "Yüksek hassasiyetli CNC double kolon dik işleme merkezi. Geniş tabla yüzeyi ve güçlü spindle motoru ile ağır işleme kapasitesi.",
+    "category": "cnc-double-kolon",
+    "price": 1250000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tabla Boyutu",
+        "value": "1200 x 1000 mm"
+      },
+      {
+        "label": "Spindle Devri",
+        "value": "12000 rpm"
+      },
+      {
+        "label": "X Ekseni",
+        "value": "1200 mm"
+      },
+      {
+        "label": "Y Ekseni",
+        "value": "1000 mm"
+      },
+      {
+        "label": "Z Ekseni",
+        "value": "600 mm"
+      }
+    ],
+    "standardAccessories": [
+      "20 Takım ATC",
+      "Talaş Konveyörü",
+      "Yağ Soğutucu"
+    ],
+    "optionalAccessories": [
+      "4. Eksen Tabla",
+      "Takım Ölçme Sistemi",
+      "İş Parçası Ölçme Sistemi"
+    ]
+  },
+  {
+    "id": "cnc-double-kolon-dk1500",
+    "type": "products",
+    "name": "CNC Double Kolon İşleme Merkezi DK-1500",
+    "description": "Büyük parçalar için ideal CNC double kolon dik işleme merkezi. Yüksek rijitlik ve hassasiyet.",
+    "category": "cnc-double-kolon",
+    "price": 1450000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tabla Boyutu",
+        "value": "1500 x 1200 mm"
+      },
+      {
+        "label": "Spindle Devri",
+        "value": "15000 rpm"
+      },
+      {
+        "label": "X Ekseni",
+        "value": "1500 mm"
+      },
+      {
+        "label": "Y Ekseni",
+        "value": "1200 mm"
+      },
+      {
+        "label": "Z Ekseni",
+        "value": "800 mm"
+      }
+    ],
+    "standardAccessories": [
+      "30 Takım ATC",
+      "Talaş Konveyörü",
+      "Yağ Soğutucu",
+      "Spindle Soğutma"
+    ],
+    "optionalAccessories": [
+      "4. Eksen Tabla",
+      "Takım Ölçme Sistemi",
+      "İş Parçası Ölçme Sistemi",
+      "Talaş Yıkama Sistemi"
+    ]
+  },
+  {
+    "id": "dalma-erozyon-de800",
+    "type": "products",
+    "name": "Dalma Erozyon DE-800",
+    "description": "Yüksek hassasiyetli dalma erozyon tezgahı. Kalıp imalatı için ideal çözüm.",
+    "category": "dalma-erozyon",
+    "price": 850000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tabla Boyutu",
+        "value": "800 x 500 mm"
+      },
+      {
+        "label": "Z Ekseni",
+        "value": "400 mm"
+      },
+      {
+        "label": "Tank Kapasitesi",
+        "value": "300 L"
+      },
+      {
+        "label": "Max. İş Parçası Ağırlığı",
+        "value": "800 kg"
+      }
+    ],
+    "standardAccessories": [
+      "C Ekseni",
+      "Dielektrik Filtrasyon Sistemi",
+      "Otomatik Elektrot Değiştirici"
+    ],
+    "optionalAccessories": [
+      "Robot Otomasyon",
+      "Yangın Söndürme Sistemi",
+      "Chiller"
+    ]
+  },
+  {
+    "id": "kalipci-freze-kf1000",
+    "type": "products",
+    "name": "Kalıpçı Freze KF-1000",
+    "description": "Hassas kalıp işleme için özel tasarlanmış kalıpçı freze tezgahı.",
+    "category": "kalipci-freze",
+    "price": 750000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tabla Boyutu",
+        "value": "1000 x 400 mm"
+      },
+      {
+        "label": "Spindle Devri",
+        "value": "8000 rpm"
+      },
+      {
+        "label": "X Ekseni",
+        "value": "1000 mm"
+      },
+      {
+        "label": "Y Ekseni",
+        "value": "400 mm"
+      },
+      {
+        "label": "Z Ekseni",
+        "value": "500 mm"
+      }
+    ],
+    "standardAccessories": [
+      "Digital Gösterge",
+      "Soğutma Sistemi",
+      "Aydınlatma"
+    ],
+    "optionalAccessories": [
+      "DRO Sistemi",
+      "Otomatik Yağlama",
+      "Talaş Muhafazası"
+    ]
+  },
+  {
+    "id": "universal-freze-uf600",
+    "type": "products",
+    "name": "Universal Kalıpçı Freze UF-600",
+    "description": "Çok yönlü işleme kabiliyeti ile universal kalıpçı freze tezgahı.",
+    "category": "universal-kalipci-freze",
+    "price": 650000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tabla Boyutu",
+        "value": "600 x 300 mm"
+      },
+      {
+        "label": "Spindle Devri",
+        "value": "6000 rpm"
+      },
+      {
+        "label": "X Ekseni",
+        "value": "600 mm"
+      },
+      {
+        "label": "Y Ekseni",
+        "value": "300 mm"
+      },
+      {
+        "label": "Z Ekseni",
+        "value": "400 mm"
+      }
+    ],
+    "standardAccessories": [
+      "Digital Gösterge",
+      "Soğutma Sistemi",
+      "İş Aydınlatması"
+    ],
+    "optionalAccessories": [
+      "DRO Sistemi",
+      "Divizör",
+      "Talaş Muhafazası"
+    ]
+  },
+  {
+    "id": "ikinci-el-cnc-torna",
+    "type": "used",
+    "name": "2. El CNC Torna Tezgahı",
+    "description": "2018 model, bakımlı CNC torna tezgahı. 2000 saat çalışma süresi.",
+    "category": "torna",
+    "price": 450000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Çalışma Saati",
+        "value": "2000 saat"
+      },
+      {
+        "label": "Marka",
+        "value": "Goodway"
+      },
+      {
+        "label": "Model",
+        "value": "GLS-1500"
+      },
+      {
+        "label": "Üretim Yılı",
+        "value": "2018"
+      }
+    ],
+    "standardAccessories": [
+      "Ayna",
+      "Talaş Konveyörü",
+      "Takım Tutucu Set"
+    ],
+    "optionalAccessories": []
+  },
+  {
+    "id": "ikinci-el-kalipci-freze",
+    "type": "used",
+    "name": "2. El Kalıpçı Freze",
+    "description": "2019 model, az kullanılmış kalıpçı freze tezgahı.",
+    "category": "kalipci-freze",
+    "price": 280000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Çalışma Saati",
+        "value": "1500 saat"
+      },
+      {
+        "label": "Marka",
+        "value": "First"
+      },
+      {
+        "label": "Model",
+        "value": "LC-1000"
+      },
+      {
+        "label": "Üretim Yılı",
+        "value": "2019"
+      }
+    ],
+    "standardAccessories": [
+      "Mengene",
+      "Takım Seti",
+      "Soğutma Sistemi"
+    ],
+    "optionalAccessories": []
+  },
+  {
+    "id": "yedek-parca-spindle",
+    "type": "spare",
+    "name": "CNC Spindle Motoru",
+    "description": "12000 rpm CNC tezgahlar için yüksek performanslı spindle motoru.",
+    "category": "yedek-parcalar",
+    "price": 85000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Devir",
+        "value": "12000 rpm"
+      },
+      {
+        "label": "Güç",
+        "value": "15 kW"
+      },
+      {
+        "label": "Soğutma",
+        "value": "Sıvı Soğutma"
+      },
+      {
+        "label": "Ağırlık",
+        "value": "45 kg"
+      }
+    ],
+    "standardAccessories": [],
+    "optionalAccessories": []
+  },
+  {
+    "id": "yedek-parca-cnc-kontrol",
+    "type": "spare",
+    "name": "CNC Kontrol Ünitesi",
+    "description": "Fanuc uyumlu CNC kontrol ünitesi, tüm CNC tezgahlar için.",
+    "category": "yedek-parcalar",
+    "price": 120000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Marka",
+        "value": "Fanuc"
+      },
+      {
+        "label": "Model",
+        "value": "0i-TF"
+      },
+      {
+        "label": "Ekran",
+        "value": "10.4 inç LCD"
+      },
+      {
+        "label": "Kontrol Ekseni",
+        "value": "4 Eksen"
+      }
+    ],
+    "standardAccessories": [],
+    "optionalAccessories": []
+  },
+  {
+    "id": "aksesuar-takim-tutucu",
+    "type": "accessories",
+    "name": "HSK63 Takım Tutucu Set",
+    "description": "CNC tezgahlar için profesyonel takım tutucu seti.",
+    "category": "aksesuarlar",
+    "price": 45000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tip",
+        "value": "HSK63"
+      },
+      {
+        "label": "Set İçeriği",
+        "value": "20 Parça"
+      },
+      {
+        "label": "Max. Devir",
+        "value": "20000 rpm"
+      }
+    ],
+    "standardAccessories": [],
+    "optionalAccessories": []
+  },
+  {
+    "id": "aksesuar-pens-set",
+    "type": "accessories",
+    "name": "ER32 Pens Seti",
+    "description": "Hassas sıkma için profesyonel pens seti.",
+    "category": "aksesuarlar",
+    "price": 12000,
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Tip",
+        "value": "ER32"
+      },
+      {
+        "label": "Set İçeriği",
+        "value": "18 Parça"
+      },
+      {
+        "label": "Sıkma Aralığı",
+        "value": "2-20 mm"
+      }
+    ],
+    "standardAccessories": [],
+    "optionalAccessories": []
+  },
+  {
+    "id": "kampanya-cnc-torna",
+    "type": "campaign",
+    "name": "CNC Torna Tezgahı Kampanyası",
+    "description": "Sınırlı süre için CNC torna tezgahında özel fiyat!",
+    "category": "torna",
+    "price": 580000,
+    "oldPrice": 750000,
+    "campaign": {
+      "type": "discount",
+      "endDate": "2024-05-01"
+    },
+    "image": "/images/placeholder-product.jpg",
+    "images": [],
+    "specs": [
+      {
+        "label": "Banc Boyu",
+        "value": "1500 mm"
+      },
+      {
+        "label": "Spindle Devri",
+        "value": "4500 rpm"
+      },
+      {
+        "label": "Kontrol",
+        "value": "Fanuc 0i-TF"
+      }
+    ],
+    "standardAccessories": [
+      "3 Ayaklı Ayna",
+      "Talaş Konveyörü",
+      "Takım Seti"
+    ],
+    "optionalAccessories": [
+      "Taret",
+      "Sabit Ayak",
+      "Soğutma Sistemi"
+    ]
+  }
+]

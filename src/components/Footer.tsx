@@ -69,6 +69,11 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/yedek-parca" className="text-gray-400 hover:text-primary transition-colors">
+                    Yedek Parça
+                  </Link>
+                </li>
+                <li>
                   <Link href="/kariyer" className="text-gray-400 hover:text-primary transition-colors">
                     Kariyer
                   </Link>

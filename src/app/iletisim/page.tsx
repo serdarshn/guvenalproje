@@ -238,8 +238,28 @@ export default function ContactPage() {
       </section>
 
       {/* Forms Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-16 bg-background relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="contact-form-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#contact-form-grid)"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Floating Elements */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
+
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
             {/* Tabs */}
             <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -640,8 +660,28 @@ export default function ContactPage() {
       </section>
 
       {/* İletişim Bilgileri Section */}
-      <section className="py-24 relative z-10 bg-background-off">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-background relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/5 to-transparent"></div>
+          <div className="absolute inset-0 opacity-30">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="contact-info-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary-900/10"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#contact-info-grid)"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Floating Elements */}
+        <div className="absolute top-12 left-8 w-3 h-3 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute bottom-24 right-16 w-4 h-4 bg-primary-500/20 rounded-full"></div>
+        <div className="absolute top-1/2 right-32 w-2 h-2 bg-primary-500/20 rounded-full"></div>
+
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-text mb-4">İletişim Bilgileri</h2>

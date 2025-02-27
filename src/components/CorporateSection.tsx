@@ -38,16 +38,20 @@ export default function CorporateSection() {
               transition={{ duration: 0.5 }}
             >
               <h2 className="text-4xl md:text-5xl font-bold text-text mb-6">
-                Endüstriyel Çözümlerde <span className="text-primary">40 Yıllık Tecrübe</span>
+                Güvenal Makina – <span className="text-primary">Güvenal Group&apos;un Güçlü Markası</span>
               </h2>
-              <p className="text-text-light text-lg max-w-3xl mx-auto">
-                Güvenal Makina olarak, endüstriyel makina sektöründe öncü çözümler sunuyoruz. Müşterilerimizin ihtiyaçlarını en iyi şekilde anlıyor ve en uygun çözümleri üretiyoruz.
+              <p className="text-text-light text-lg max-w-4xl mx-auto">
+                Güvenal Makina, Güvenal Group bünyesinde faaliyet gösteren ve takım tezgahları sektöründe öncü çözümler sunan bir markadır. 
+                40 yılı aşkın deneyimimiz ve 150 kişilik uzman ekibimizle, sanayi üretimine yüksek kalite, yenilikçi teknoloji ve verimli çözümler sunuyoruz.
+                <br /><br />
+                22 yıldır üniversal takım tezgahları ve CNC makinaları satışıyla müşterilerimizin üretim gücünü artırıyoruz. 
+                Müşterilerimize yalnızca satış sürecinde değil, 7/24 teknik servis desteği ve orijinal yedek parça temini ile de kesintisiz hizmet sunuyoruz.
               </p>
             </motion.div>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid md:grid-cols-4 gap-6 mb-16">
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
             {[
               {
                 value: '40+',
@@ -59,17 +63,8 @@ export default function CorporateSection() {
                 )
               },
               {
-                value: '1000+',
-                label: 'Mutlu Müşteri',
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                )
-              },
-              {
-                value: '50+',
-                label: 'Uzman Personel',
+                value: '150+',
+                label: 'Uzman Ekip',
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -142,8 +137,8 @@ export default function CorporateSection() {
             >
               {[
                 {
-                  title: 'Kalite Odaklı Yaklaşım',
-                  description: 'En yüksek standartlarda üretim ve hizmet anlayışı ile çalışıyoruz.',
+                  title: '150 Kişilik Uzman Kadro',
+                  description: '150 kişilik uzman kadro ile güçlü üretim kapasitesi',
                   icon: (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -151,8 +146,8 @@ export default function CorporateSection() {
                   )
                 },
                 {
-                  title: 'Müşteri Memnuniyeti',
-                  description: 'Müşterilerimizin ihtiyaçlarına özel çözümler üretiyoruz.',
+                  title: '22 Yıllık Deneyim',
+                  description: 'Üniversal takım tezgahları ve CNC makinalarında 22 yıllık deneyim',
                   icon: (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
@@ -160,8 +155,8 @@ export default function CorporateSection() {
                   )
                 },
                 {
-                  title: 'Sürekli Yenilik',
-                  description: 'Modern teknoloji ve yenilikçi çözümlerle sektöre öncülük ediyoruz.',
+                  title: 'Kesintisiz Hizmet',
+                  description: '7/24 teknik servis desteği ve yedek parça tedariki',
                   icon: (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -187,10 +182,10 @@ export default function CorporateSection() {
 
               <Link
                 href="/kurumsal"
-                className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-medium hover:bg-primary-600 transition-colors shadow-lg shadow-primary/25 w-full justify-center"
+                className="inline-flex items-center gap-2 bg-primary text-white px-6 py-4 rounded-xl font-medium hover:bg-primary-600 transition-colors shadow-lg shadow-primary/25 w-full justify-center text-sm sm:text-base"
               >
-                Daha Fazla Bilgi
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                Güvenal Makina ile üretiminize güç katın, geleceğe güvenle ilerleyin!
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
