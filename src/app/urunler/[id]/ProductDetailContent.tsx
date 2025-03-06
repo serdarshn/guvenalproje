@@ -36,7 +36,6 @@ export default function ProductDetailContent({ product }: Props) {
           <div className="container mx-auto px-4 relative">
             <div className="max-w-7xl mx-auto py-16 lg:py-24">
               <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">{product.name}</h1>
-              <p className="text-lg text-white/90 max-w-2xl">{product.description}</p>
               <div className="mt-4">
                 <span className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
                   product.type === 'products' ? 'bg-white/10 text-white' :
@@ -162,7 +161,7 @@ export default function ProductDetailContent({ product }: Props) {
                       </div>
                       <div>
                         <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
-                        <p className="text-gray-600">{product.description}</p>
+                        <p className="text-gray-600 mb-8 whitespace-pre-line">{product.description}</p>
                       </div>
                     </div>
                   )}
@@ -174,8 +173,8 @@ export default function ProductDetailContent({ product }: Props) {
                         {product.specs.map((spec, index) => (
                           <div key={index} className="bg-gray-100 rounded-lg p-2 shadow-md hover:bg-[#FFA500] group transition-colors relative">
                             <div className="grid grid-cols-2 items-center">
-                              <span className="text-gray-600 text-lg group-hover:text-white pl-4">{spec.label}</span>
-                              <span className="font-medium text-gray-900 text-lg group-hover:text-white pl-8">{spec.value}</span>
+                              <span className="text-gray-600 text-sm group-hover:text-white pl-4">{spec.label}</span>
+                              <span className="font-medium text-gray-900 text-sm group-hover:text-white pl-8">{spec.value}</span>
                             </div>
                             <div className="absolute left-1/2 top-1/2 -translate-y-1/2 w-[1px] h-4/5 bg-gray-300 group-hover:bg-white"></div>
                           </div>
@@ -193,7 +192,7 @@ export default function ProductDetailContent({ product }: Props) {
                             {product.standardAccessories && product.standardAccessories.length > 0 ? (
                               product.standardAccessories.map((accessory, index) => (
                                 <div key={index} className="bg-gray-100 rounded-lg p-2 shadow-md hover:bg-[#FFA500] group transition-colors">
-                                  <p className="text-gray-600 text-lg p-1 rounded-md group-hover:text-white">{accessory}</p>
+                                  <p className="text-gray-600 text-sm font-medium p-1 rounded-md group-hover:text-white">{accessory}</p>
                                 </div>
                               ))
                             ) : (
@@ -207,7 +206,7 @@ export default function ProductDetailContent({ product }: Props) {
                             {product.optionalAccessories && product.optionalAccessories.length > 0 ? (
                               product.optionalAccessories.map((accessory, index) => (
                                 <div key={index} className="bg-gray-100 rounded-lg p-2 shadow-md hover:bg-[#FFA500] group transition-colors">
-                                  <p className="text-gray-600 text-lg p-1 rounded-md group-hover:text-white">{accessory}</p>
+                                  <p className="text-gray-600 text-sm font-medium p-1 rounded-md group-hover:text-white">{accessory}</p>
                                 </div>
                               ))
                             ) : (

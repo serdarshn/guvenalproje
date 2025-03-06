@@ -8,17 +8,100 @@ import { toast } from 'react-hot-toast';
 const CATEGORIES = {
   products: [
     { id: 'cnc-double', name: 'CNC Double Kolon Dik İşleme Merkezi' },
-    { id: 'dalma-erozyon', name: 'Dalma Erozyon Tezgahları' },
-    { id: 'kalipci-freze', name: 'Kalıpçı Freze Tezgahları' },
-    { id: 'universal-kalipci-freze', name: 'Üniversal Kalıpçı Freze Tezgahları' },
-    { id: 'koc-kafa-freze', name: 'Koç Kafa Universal Freze' },
-    { id: 'taslama', name: 'Taşlama Tezgahları' },
-    { id: 'torna', name: 'Torna Tezgahları' },
-    { id: 'masa-ustu-torna', name: 'Masa Üstü Torna Tezgahları' },
-    { id: 'radyal-matkap', name: 'Radyal Matkap Tezgahları' },
-    { id: 'sutunlu-matkap', name: 'Sütunlu Matkap Tezgahları' },
-    { id: 'testere', name: 'Testere Tezgahları' },
-    { id: 'kilavuz', name: 'Kılavuz Çekme Tezgahları' }
+    { 
+      id: 'dalma-erozyon', 
+      name: 'Dalma Erozyon Tezgahları',
+      subcategories: [
+        { 
+          id: 'best-edm', 
+          name: 'BEST EDM',
+          subcategories: [
+            { id: 'znc-serisi', name: 'ZNC Serisi' },
+            { id: 'pnc-serisi', name: 'PNC Serisi' },
+            { id: 'cnc-serisi', name: 'CNC Serisi' }
+          ]
+        },
+        { id: 'cift-kafali-dalma-erezyon', name: 'ÇİFT KAFALI DALMA EREZYON' },
+        { 
+          id: 'king-edm', 
+          name: 'KING EDM',
+          subcategories: [
+            { id: 'pnc-serisi-king', name: 'PNC SERİSİ' },
+            { id: 'znc-serisi-king', name: 'ZNC SERİSİ' }
+          ]
+        }
+      ]
+    },
+    { 
+      id: 'kalipci-freze', 
+      name: 'Kalıpçı Freze Tezgahları',
+      subcategories: [
+        { id: 'king', name: 'KİNG' },
+        { id: 'jetco', name: 'JETCO' },
+        { id: 'kg-super', name: 'KG SUPER' }
+      ]
+    },
+    { 
+      id: 'universal-kalipci-freze', 
+      name: 'Üniversal Kalıpçı Freze Tezgahları',
+      subcategories: [
+        { id: 'king-universal', name: 'KİNG' },
+        { id: 'king-ysm', name: 'KİNG YSM' },
+        { id: 'kg-super-universal', name: 'KG SUPER' }
+      ]
+    },
+    { id: 'koc-kafa-universal-freze', name: 'Koç Kafa Universal Freze' },
+    { 
+      id: 'taslama', 
+      name: 'Taşlama Tezgahları',
+      subcategories: [
+        { id: 'king-grinder', name: 'KİNG GRINDER' }
+      ]
+    },
+    { 
+      id: 'universal-torna', 
+      name: 'Torna Tezgahları',
+      subcategories: [
+        { id: 'king-torna', name: 'KING' },
+        { id: 'jetco-torna', name: 'JETCO' },
+        { id: 'tos', name: 'TOS' }
+      ]
+    },
+    { id: 'masa-ustu-torna', name: 'Masaüstü Torna Tezgahları' },
+    { 
+      id: 'radyal-matkap', 
+      name: 'Radyal Matkap Tezgahları',
+      subcategories: [
+        { id: 'tailift', name: 'TAILIFT' },
+        { id: 'kg-super-matkap', name: 'KG SUPER' }
+      ]
+    },
+    { 
+      id: 'sutunlu-matkap', 
+      name: 'Sütunlu Matkap Tezgahları',
+      subcategories: [
+        { id: 'king-matkap', name: 'KING' },
+        { id: 'jetco-matkap', name: 'JETCO' },
+        { id: 'sahin', name: 'ŞAHİN' },
+        { id: 'boyka', name: 'BOYKA' }
+      ]
+    },
+    { 
+      id: 'testere', 
+      name: 'Testere Tezgahları',
+      subcategories: [
+        { id: 'king-tyc', name: 'KING TYC' },
+        { id: 'jetco-testere', name: 'JETCO' },
+        { id: 'kesmak', name: 'KESMAK' }
+      ]
+    },
+    { 
+      id: 'kilavuz', 
+      name: 'Kılavuz Çekme Tezgahları',
+      subcategories: [
+        { id: 'king-tapping', name: 'KING TAPPING' }
+      ]
+    }
   ],
   used: [
     { id: 'all', name: 'Tüm İkinci El Ürünler' },
@@ -38,6 +121,34 @@ interface Campaign {
   type: 'discount';
   endDate: string;
 }
+
+interface CategoryBase {
+  id: string;
+  name: string;
+  subcategories?: CategoryBase[];
+}
+
+// Kategori seçeneklerini düzleştiren yardımcı fonksiyon
+const flattenCategories = (categories: CategoryBase[], prefix = '') => {
+  let options: { id: string; name: string }[] = [];
+  
+  categories.forEach(category => {
+    // Ana kategoriyi ekle
+    options.push({
+      id: category.id,
+      name: prefix ? `${prefix} > ${category.name}` : category.name
+    });
+    
+    // Alt kategorileri ekle
+    if (category.subcategories) {
+      const newPrefix = prefix ? `${prefix} > ${category.name}` : category.name;
+      const subOptions = flattenCategories(category.subcategories, newPrefix);
+      options = [...options, ...subOptions];
+    }
+  });
+  
+  return options;
+};
 
 function AddProductContent() {
   const searchParams = useSearchParams();
@@ -296,11 +407,21 @@ function AddProductContent() {
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
                 >
                   <option value="">Kategori Seçin</option>
-                  {CATEGORIES[productType as keyof typeof CATEGORIES]?.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
+                  {productType === 'products' ? (
+                    // Ürünler için hiyerarşik kategorileri göster
+                    flattenCategories(CATEGORIES[productType as keyof typeof CATEGORIES] || []).map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
+                      </option>
+                    ))
+                  ) : (
+                    // Diğer ürün tipleri için normal kategorileri göster
+                    CATEGORIES[productType as keyof typeof CATEGORIES]?.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
 

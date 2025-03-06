@@ -3,13 +3,15 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function CorporatePage() {
   const [activeTab, setActiveTab] = useState('brands');
-  const [emblaRef, emblaApi] = useEmblaCarousel(
+  const [selectedImage, setSelectedImage] = useState('');
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [, emblaApi] = useEmblaCarousel(
     {
       loop: true,
       align: 'center',
@@ -27,14 +29,6 @@ export default function CorporatePage() {
       })
     ]
   );
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
 
   // Autoplay functionality
   useEffect(() => {
@@ -133,12 +127,12 @@ export default function CorporatePage() {
                 <div className="relative">
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
-                      src="/images/about-hero.jpg"
+                      src="/images/Hakkimizda/hakkimizdafoto2.jpg"
                       alt="Güvenal Makina Üretim"
                       fill
-                      className="object-cover"
+                      className="object-contain rounded-2xl"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-2xl"></div>
                   </div>
                   
                   {/* Floating Stats */}
@@ -583,55 +577,60 @@ export default function CorporatePage() {
 
             {/* Brands Slider */}
             <div className={`transition-all duration-500 ${activeTab === 'brands' ? 'block' : 'hidden'}`}>
-              <div className="relative px-12">
-                <div className="overflow-hidden" ref={emblaRef}>
-                  <div className="flex -ml-4">
-                    {[...Array(22)].map((_, index) => (
-                      <div key={index} className="flex-[0_0_calc(20%-16px)] min-w-0 pl-4">
-                        <div className="relative h-24 bg-white rounded-xl shadow-soft border border-gray-100 p-6 transition-all duration-300 hover:shadow-lg group">
-                          <Image
-                            src={`https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg`}
-                            alt={`Brand Logo ${index + 1}`}
-                            fill
-                            className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 p-4"
-                          />
-                        </div>
-                      </div>
-                    ))}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+                {[
+                  '/images/Markalar/marka1.jpg',
+                  '/images/Markalar/marka2.jpg',
+                  '/images/Markalar/marka3.jpg',
+                  '/images/Markalar/marka4.png',
+                  '/images/Markalar/marka5.png',
+                  '/images/Markalar/marka6.jpg',
+                  '/images/Markalar/marka7.jpg',
+                  '/images/Markalar/marka8.jpg',
+                  '/images/Markalar/marka9.jpg',
+                  '/images/Markalar/marka10.png',
+                  '/images/Markalar/marka11.png',
+                  '/images/Markalar/marka12.jpg',
+                  '/images/Markalar/marka13.jpg',
+                  '/images/Markalar/marka14.jpg',
+                  '/images/Markalar/marka15.jpg',
+                  '/images/Markalar/marka16.jpg',
+                  '/images/Markalar/marka17.jpg',
+                  '/images/Markalar/marka18.jpg',
+                  '/images/Markalar/marka19.jpg',
+                  '/images/Markalar/marka20.jpg',
+                  '/images/Markalar/marka21.jpg',
+                  '/images/Markalar/marka22.jpg'
+                ].map((brand, index) => (
+                  <div key={index} className="group relative">
+                    <div className="relative h-24 bg-white rounded-xl shadow-soft border border-gray-100 p-6 transition-all duration-300 hover:shadow-lg">
+                      <Image
+                        src={brand}
+                        alt={`Marka ${index + 1}`}
+                        fill
+                        className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 p-4"
+                      />
+                    </div>
                   </div>
-                </div>
-
-                {/* Navigation Buttons */}
-                <button
-                  onClick={scrollPrev}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 bg-white text-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:bg-primary hover:text-white z-10"
-                  aria-label="Previous slide"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button
-                  onClick={scrollNext}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 bg-white text-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:bg-primary hover:text-white z-10"
-                  aria-label="Next slide"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                ))}
               </div>
             </div>
 
             {/* Partners Grid */}
             <div className={`transition-all duration-500 ${activeTab === 'partners' ? 'block' : 'hidden'}`}>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
-                {[1, 2, 3, 4, 5].map((index) => (
+                {[
+                  '/images/CozumOrtaklari/cozumortagi1.jpg',
+                  '/images/CozumOrtaklari/cozumortagi2.jpg',
+                  '/images/CozumOrtaklari/cozumortagi3.jpg',
+                  '/images/CozumOrtaklari/cozumortagi4.jpg',
+                  '/images/CozumOrtaklari/cozumortagi5.jpg'
+                ].map((partner, index) => (
                   <div key={index} className="group relative">
                     <div className="relative h-24 bg-white rounded-xl shadow-soft border border-gray-100 p-6 transition-all duration-300 hover:shadow-lg">
                       <Image
-                        src={`https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg`}
-                        alt={`Partner Logo ${index}`}
+                        src={partner}
+                        alt={`Çözüm Ortağı ${index + 1}`}
                         fill
                         className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 p-4"
                       />
@@ -681,129 +680,110 @@ export default function CorporatePage() {
 
             {/* Sertifikalar Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* CE Sertifikası */}
-              <div className="group">
-                <div className="bg-white rounded-xl overflow-hidden shadow-soft border border-gray-100 transition-all duration-300 hover:shadow-lg">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <Image
-                      src="https://images.pexels.com/photos/5726839/pexels-photo-5726839.jpeg"
-                      alt="CE Sertifikası"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-lg font-bold text-white mb-2">CE Sertifikası</h3>
-                      <p className="text-sm text-white/80">Avrupa Birliği Standartları</p>
+              {[
+                {
+                  image: '/images/Sertifikalar/sertifika1.jpg',
+                  title: 'Marka Tescil Belgesi',
+                  description: 'Türk Patent ve Marka Kurumu'
+                },
+                {
+                  image: '/images/Sertifikalar/sertifika2.jpg',
+                  title: 'Marka Tescil Belgesi',
+                  description: 'Uluslararası Marka Tescili'
+                },
+                {
+                  image: '/images/Sertifikalar/sertifika3.jpg',
+                  title: 'Marka Tescil Belgesi',
+                  description: 'Endüstriyel Tasarım Tescili'
+                },
+                {
+                  image: '/images/Sertifikalar/sertifika4.jpg',
+                  title: 'Hizmet Yeterlilik Belgesi',
+                  description: 'Teknik Servis ve Hizmet Yeterliliği'
+                }
+              ].map((certificate, index) => (
+                <div key={index} className="group">
+                  <div className="bg-white rounded-xl overflow-hidden shadow-soft border border-gray-100 transition-all duration-300 hover:shadow-lg">
+                    <div 
+                      className="relative aspect-[3/4] overflow-hidden cursor-pointer"
+                      onClick={() => {
+                        setSelectedImage(certificate.image);
+                        setIsLightboxOpen(true);
+                      }}
+                    >
+                      <Image
+                        src={certificate.image}
+                        alt={certificate.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-lg font-bold text-white mb-2">{certificate.title}</h3>
+                        <p className="text-sm text-white/80">{certificate.description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-6 bg-white">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-text-light">Belge No: CE-2024-001</span>
-                      <button className="text-primary hover:text-primary-600 transition-colors">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* ISO 9001 */}
-              <div className="group">
-                <div className="bg-white rounded-xl overflow-hidden shadow-soft border border-gray-100 transition-all duration-300 hover:shadow-lg">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <Image
-                      src="https://images.pexels.com/photos/5726838/pexels-photo-5726838.jpeg"
-                      alt="ISO 9001 Sertifikası"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-lg font-bold text-white mb-2">ISO 9001</h3>
-                      <p className="text-sm text-white/80">Kalite Yönetim Sistemi</p>
-                    </div>
-                  </div>
-                  <div className="p-6 bg-white">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-text-light">Belge No: ISO-2024-002</span>
-                      <button className="text-primary hover:text-primary-600 transition-colors">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* TSE */}
-              <div className="group">
-                <div className="bg-white rounded-xl overflow-hidden shadow-soft border border-gray-100 transition-all duration-300 hover:shadow-lg">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <Image
-                      src="https://images.pexels.com/photos/5726837/pexels-photo-5726837.jpeg"
-                      alt="TSE Sertifikası"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-lg font-bold text-white mb-2">TSE</h3>
-                      <p className="text-sm text-white/80">Türk Standartları Uygunluk</p>
-                    </div>
-                  </div>
-                  <div className="p-6 bg-white">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-text-light">Belge No: TSE-2024-003</span>
-                      <button className="text-primary hover:text-primary-600 transition-colors">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </button>
+                    <div className="p-6 bg-white">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-text-light">Belge Tarihi: {[
+                          '21/11/2006',
+                          '23/05/2008',
+                          '18/08/2006',
+                          '18/05/2015'
+                        ][index]}</span>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedImage(certificate.image);
+                            setIsLightboxOpen(true);
+                          }}
+                          className="text-primary hover:text-primary-600 transition-colors"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* ISO 14001 */}
-              <div className="group">
-                <div className="bg-white rounded-xl overflow-hidden shadow-soft border border-gray-100 transition-all duration-300 hover:shadow-lg">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <Image
-                      src="https://images.pexels.com/photos/5726836/pexels-photo-5726836.jpeg"
-                      alt="ISO 14001 Sertifikası"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-lg font-bold text-white mb-2">ISO 14001</h3>
-                      <p className="text-sm text-white/80">Çevre Yönetim Sistemi</p>
-                    </div>
-                  </div>
-                  <div className="p-6 bg-white">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-text-light">Belge No: ISO-2024-004</span>
-                      <button className="text-primary hover:text-primary-600 transition-colors">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {isLightboxOpen && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          <div className="relative max-w-5xl w-full h-full flex items-center justify-center">
+            <button 
+              className="absolute top-4 right-4 text-white hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsLightboxOpen(false);
+              }}
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image
+                src={selectedImage}
+                alt="Sertifika Detay"
+                fill
+                className="object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </main>

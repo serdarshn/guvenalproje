@@ -30,9 +30,9 @@ export default function SecondHandSection() {
                 Güvenal Makina güvencesiyle bakımı yapılmış, test edilmiş ikinci el endüstriyel makinalar için ikinci el ürünler sayfamızı ziyaret edin.
               </p>
               <div className="flex flex-wrap gap-6">
-                <Link 
-                  href="/ikinci-el"
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-600 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 hover:gap-3"
+                <Link
+                  href="/urunler?filter=ikinci-el"
+                  className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-medium hover:bg-primary-600 transition-colors shadow-lg shadow-primary/25"
                 >
                   İkinci El Ürünleri İncele
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -4,7 +4,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { products } from '@/data/products';
+// import { products } from '@/data/products';
+import { Product } from '@/data/products';
 
 export default function ContactPage() {
   const [activeTab, setActiveTab] = useState('contact');
@@ -17,7 +18,9 @@ export default function ContactPage() {
     subject: '',
     message: '',
     captcha: '',
-    product: ''
+    product: '',
+    service: '',
+    formType: 'contact'
   });
   const [isLoading, setIsLoading] = useState(false);
   const [captchaCode, setCaptchaCode] = useState(() => {
@@ -39,20 +42,41 @@ export default function ContactPage() {
   // Ürün arama için state'ler
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [productSearchQuery, setProductSearchQuery] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const productDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Ürünleri API'den çek
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        if (data.success) {
+          // Sadece normal ürünleri filtrele
+          const normalProducts = data.products.filter((p: Product) => p.type === 'products' && !p.campaign);
+          setAllProducts(normalProducts);
+          setFilteredProducts(normalProducts);
+        }
+      } catch (error) {
+        console.error('Ürünler yüklenirken hata:', error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   // Ürün arama fonksiyonu
   useEffect(() => {
     if (productSearchQuery) {
-      const filtered = products.filter(product =>
+      const filtered = allProducts.filter(product =>
         product.name.toLowerCase().includes(productSearchQuery.toLowerCase())
       );
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts(products);
+      setFilteredProducts(allProducts);
     }
-  }, [productSearchQuery]);
+  }, [productSearchQuery, allProducts]);
 
   // Dropdown dışına tıklandığında kapanması için
   useEffect(() => {
@@ -136,14 +160,7 @@ export default function ContactPage() {
     // Captcha kontrolü
     if (formData.captcha.toLowerCase() !== captchaCode.toLowerCase()) {
       toast.error('Güvenlik kodu hatalı. Lütfen tekrar deneyin.');
-      setCaptchaCode(() => {
-        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        let code = '';
-        for (let i = 0; i < 6; i++) {
-          code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return code;
-      });
+      setCaptchaCode(generateCaptchaCode());
       return;
     }
 
@@ -156,7 +173,10 @@ export default function ContactPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          formType: activeTab
+        }),
       });
 
       const result = await response.json();
@@ -172,16 +192,11 @@ export default function ContactPage() {
           subject: '',
           message: '',
           captcha: '',
-          product: ''
+          product: '',
+          service: '',
+          formType: activeTab
         });
-        setCaptchaCode(() => {
-          const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-          let code = '';
-          for (let i = 0; i < 6; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          return code;
-        });
+        setCaptchaCode(generateCaptchaCode());
       } else {
         throw new Error(result.message);
       }
@@ -191,6 +206,200 @@ export default function ContactPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Form render fonksiyonu
+  const renderForm = () => {
+    return (
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* İsim Alanı */}
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-text mb-1">
+              Ad Soyad <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+
+          {/* Email Alanı */}
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-text mb-1">
+              E-posta <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+
+          {/* Telefon Alanı */}
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-text mb-1">
+              Telefon <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              required
+              value={formData.phone}
+              onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+
+          {/* Şirket Alanı */}
+          <div>
+            <label htmlFor="company" className="block text-sm font-medium text-text mb-1">
+              Şirket Adı
+            </label>
+            <input
+              type="text"
+              id="company"
+              value={formData.company}
+              onChange={(e) => setFormData({...formData, company: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+
+          {/* Ürün/Servis Seçimi */}
+          {(activeTab === 'product' || activeTab === 'service' || activeTab === 'reference') && (
+            <div className="md:col-span-2">
+              <label htmlFor="product" className="block text-sm font-medium text-text mb-1">
+                Ürün <span className="text-red-500">*</span>
+              </label>
+              <div className="relative" ref={productDropdownRef}>
+                <input
+                  type="text"
+                  id="product"
+                  value={formData.product}
+                  onClick={() => setIsProductDropdownOpen(true)}
+                  onChange={(e) => {
+                    setFormData({...formData, product: e.target.value});
+                    setProductSearchQuery(e.target.value);
+                    setIsProductDropdownOpen(true);
+                  }}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                  required
+                  placeholder="Ürün seçiniz veya aramak için yazın"
+                />
+                {isProductDropdownOpen && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+                    {filteredProducts.map((product, index) => (
+                      <div
+                        key={index}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          setFormData({...formData, product: product.name});
+                          setIsProductDropdownOpen(false);
+                        }}
+                      >
+                        {product.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Konu Alanı */}
+          <div className="md:col-span-2">
+            <label htmlFor="subject" className="block text-sm font-medium text-text mb-1">
+              Konu <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="subject"
+              required
+              value={formData.subject}
+              onChange={(e) => setFormData({...formData, subject: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+
+          {/* Mesaj Alanı */}
+          <div className="md:col-span-2">
+            <label htmlFor="message" className="block text-sm font-medium text-text mb-1">
+              Mesaj <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              id="message"
+              required
+              rows={5}
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+            ></textarea>
+          </div>
+
+          {/* Captcha Alanı */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-text mb-2">
+              Güvenlik Kodu <span className="text-red-500">*</span>
+            </label>
+            <div className="flex items-center gap-4">
+              <canvas
+                ref={canvasRef}
+                width={150}
+                height={50}
+                className="rounded border border-gray-300"
+              />
+              <button
+                type="button"
+                onClick={() => setCaptchaCode(generateCaptchaCode())}
+                className="p-2 text-primary hover:text-primary-600 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </button>
+            </div>
+            <input
+              type="text"
+              required
+              value={formData.captcha}
+              onChange={(e) => setFormData({...formData, captcha: e.target.value})}
+              className="mt-2 w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder="Güvenlik kodunu giriniz"
+            />
+          </div>
+        </div>
+
+        {/* Gönder Butonu */}
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            {isLoading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Gönderiliyor...
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                Gönder
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+    );
   };
 
   return (
@@ -261,400 +470,72 @@ export default function ContactPage() {
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
-            {/* Tabs */}
-            <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {/* Form Tabs */}
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
               <button
-                onClick={() => setActiveTab('contact')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                onClick={() => {
+                  setActiveTab('contact');
+                  setFormData({...formData, formType: 'contact', product: '', service: ''});
+                }}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                   activeTab === 'contact'
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'bg-white text-text hover:bg-primary/5'
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-text hover:bg-gray-200'
                 }`}
               >
                 İletişim Formu
               </button>
               <button
-                onClick={() => setActiveTab('service')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  activeTab === 'service'
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'bg-white text-text hover:bg-primary/5'
-                }`}
-              >
-                Servis Talebi
-              </button>
-              <button
-                onClick={() => setActiveTab('reference')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                onClick={() => {
+                  setActiveTab('reference');
+                  setFormData({...formData, formType: 'reference', product: '', service: ''});
+                }}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                   activeTab === 'reference'
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'bg-white text-text hover:bg-primary/5'
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-text hover:bg-gray-200'
                 }`}
               >
                 Referans Talebi
               </button>
               <button
-                onClick={() => setActiveTab('product')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                onClick={() => {
+                  setActiveTab('product');
+                  setFormData({...formData, formType: 'product', service: ''});
+                }}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                   activeTab === 'product'
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'bg-white text-text hover:bg-primary/5'
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-text hover:bg-gray-200'
                 }`}
               >
                 Ürün Talep Formu
               </button>
+              <button
+                onClick={() => {
+                  setActiveTab('service');
+                  setFormData({...formData, formType: 'service', product: ''});
+                }}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  activeTab === 'service'
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-text hover:bg-gray-200'
+                }`}
+              >
+                Servis Talep Formu
+              </button>
             </div>
 
             {/* Form Content */}
-            {activeTab === 'contact' && (
-              <div className="bg-white rounded-2xl shadow-sm p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-text mb-1">
-                        Ad, Soyad
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="surname" className="block text-sm font-medium text-text mb-1">
-                        E-posta
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-text mb-1">
-                        Telefon
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-text mb-1">
-                        Firma Adı
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        value={formData.company}
-                        onChange={(e) => setFormData({...formData, company: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-text mb-1">
-                      Konu
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      value={formData.subject}
-                      onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                      className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-text mb-1">
-                      Mesajınız
-                    </label>
-                    <textarea
-                      id="message"
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      rows={4}
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-text mb-1">
-                      Kodu girin
-                    </label>
-                    <div className="space-y-4">
-                      <div>
-                        <canvas
-                          ref={canvasRef}
-                          width={140}
-                          height={42}
-                          className="w-[140px] h-[42px] bg-white rounded-lg border border-gray-200"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setCaptchaCode(generateCaptchaCode())}
-                          className="mt-1 text-xs text-primary hover:text-primary-600 transition-colors"
-                        >
-                          Yeni Kod
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        id="captcha"
-                        value={formData.captcha}
-                        onChange={(e) => setFormData({...formData, captcha: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={`w-full bg-primary hover:bg-primary-600 text-white font-medium h-[42px] rounded-lg transition-colors relative ${
-                      isLoading ? 'opacity-70 cursor-not-allowed' : ''
-                    }`}
-                  >
-                    {isLoading ? (
-                      <>
-                        <span className="opacity-0">Gönder</span>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                        </div>
-                      </>
-                    ) : (
-                      'Gönder'
-                    )}
-                  </button>
-                </form>
-              </div>
-            )}
-
-            {activeTab === 'service' && (
-              <div className="bg-white rounded-2xl shadow-sm p-8">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-text mb-2">Servis Talebi</h3>
-                  <p className="text-text-light">Teknik servis talebiniz için lütfen aşağıdaki formu doldurunuz.</p>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-text mb-1">
-                        Ad, Soyad
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-text mb-1">
-                        E-posta
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-text mb-1">
-                        Telefon
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-text mb-1">
-                        Firma Adı
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        value={formData.company}
-                        onChange={(e) => setFormData({...formData, company: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="product" className="block text-sm font-medium text-text mb-1">
-                      Ürün
-                    </label>
-                    <div className="relative" ref={productDropdownRef}>
-                      <div
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors flex items-center cursor-pointer"
-                        onClick={() => setIsProductDropdownOpen(!isProductDropdownOpen)}
-                      >
-                        <span className={formData.product ? 'text-text' : 'text-gray-400'}>
-                          {formData.product ? products.find(p => p.id === formData.product)?.name : 'Ürün Seçin'}
-                        </span>
-                        <svg className="w-5 h-5 ml-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-
-                      {isProductDropdownOpen && (
-                        <div className="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 max-h-[300px] overflow-auto">
-                          <div className="p-2 border-b sticky top-0 bg-white">
-                            <input
-                              type="text"
-                              placeholder="Ürün ara..."
-                              value={productSearchQuery}
-                              onChange={(e) => setProductSearchQuery(e.target.value)}
-                              className="w-full px-3 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                              onClick={(e) => e.stopPropagation()}
-                            />
-                          </div>
-                          <div className="py-1">
-                            {filteredProducts.length === 0 ? (
-                              <div className="px-4 py-2 text-sm text-gray-500">
-                                Sonuç bulunamadı
-                              </div>
-                            ) : (
-                              filteredProducts.map((product) => (
-                                <div
-                                  key={product.id}
-                                  className={`px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 ${
-                                    formData.product === product.id ? 'bg-primary/5 text-primary' : 'text-text'
-                                  }`}
-                                  onClick={() => {
-                                    setFormData({ ...formData, product: product.id });
-                                    setIsProductDropdownOpen(false);
-                                    setProductSearchQuery('');
-                                  }}
-                                >
-                                  {product.name}
-                                </div>
-                              ))
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-text mb-1">
-                      Mesajınız
-                    </label>
-                    <textarea
-                      id="message"
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      rows={4}
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-text mb-1">
-                      Kodu girin
-                    </label>
-                    <div className="space-y-4">
-                      <div>
-                        <canvas
-                          ref={canvasRef}
-                          width={140}
-                          height={42}
-                          className="w-[140px] h-[42px] bg-white rounded-lg border border-gray-200"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setCaptchaCode(generateCaptchaCode())}
-                          className="mt-1 text-xs text-primary hover:text-primary-600 transition-colors"
-                        >
-                          Yeni Kod
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        id="captcha"
-                        value={formData.captcha}
-                        onChange={(e) => setFormData({...formData, captcha: e.target.value})}
-                        className="w-full h-[42px] px-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={`w-full bg-primary hover:bg-primary-600 text-white font-medium h-[42px] rounded-lg transition-colors relative ${
-                      isLoading ? 'opacity-70 cursor-not-allowed' : ''
-                    }`}
-                  >
-                    {isLoading ? (
-                      <>
-                        <span className="opacity-0">Gönder</span>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                        </div>
-                      </>
-                    ) : (
-                      'Gönder'
-                    )}
-                  </button>
-                </form>
-              </div>
-            )}
+            <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-8">
+              <h2 className="text-2xl font-bold text-text mb-6">
+                {activeTab === 'contact' && 'İletişim Formu'}
+                {activeTab === 'reference' && 'Referans Talebi'}
+                {activeTab === 'product' && 'Ürün Talep Formu'}
+                {activeTab === 'service' && 'Servis Talep Formu'}
+              </h2>
+              {renderForm()}
+            </div>
           </div>
         </div>
       </section>

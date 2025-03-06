@@ -165,11 +165,11 @@ export default function Header() {
               <Link href="/" className="flex items-center">
                 <Image
                   src="/logo.png"
-                  alt="Güvenal Makina"
-                  width={251}
-                  height={64}
-                  className="h-16 w-auto"
-                  priority
+                  alt="Güvenal Makina Logo"
+                  width={128}
+                  height={40}
+                  priority={true}
+                  className="h-10 w-auto"
                 />
               </Link>
             </div>

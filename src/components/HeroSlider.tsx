@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Product } from '@/data/products';
 
 // Swiper styles
 import 'swiper/css';
@@ -34,11 +35,7 @@ const DEFAULT_SLIDES: Slide[] = [
     title: 'Endüstriyel Çözümler',
     subtitle: 'Kalıpçı Freze Tezgahları',
     description: 'Modern üretim ihtiyaçlarınız için yüksek kaliteli endüstriyel makineler.',
-    specs: [
-      { label: 'Hassasiyet', value: 'Yüksek' },
-      { label: 'Kontrol', value: 'CNC' },
-      { label: 'Garanti', value: '2 Yıl' }
-    ]
+    specs: []
   },
   {
     id: 'default-2',
@@ -46,19 +43,83 @@ const DEFAULT_SLIDES: Slide[] = [
     title: 'Profesyonel Ekipmanlar',
     subtitle: 'Dalma Erozyon Tezgahları',
     description: 'Endüstriyel üretimde maksimum verimlilik için tasarlanmış çözümler.',
-    specs: [
-      { label: 'Teknoloji', value: 'İleri' },
-      { label: 'Performans', value: 'Yüksek' },
-      { label: 'Destek', value: '7/24' }
-    ]
+    specs: []
   }
 ];
 
+// Ürünleri Slide formatına dönüştüren yardımcı fonksiyon
+const productToSlide = (product: Product): Slide => {
+  // Açıklamayı 50 karakterle sınırla
+  const limitedDescription = product.description 
+    ? product.description.length > 50 
+      ? product.description.substring(0, 50) + '...' 
+      : product.description
+    : 'Ürün detayları için tıklayın.';
+
+  // Özellikleri 50 karakterle sınırla
+  const limitedSpecs = product.specs 
+    ? product.specs.map(spec => ({
+        label: spec.label,
+        value: spec.value.length > 50 
+          ? spec.value.substring(0, 50) + '...' 
+          : spec.value
+      }))
+    : [];
+
+  return {
+    id: product.id,
+    image: product.image || '/images/placeholder-product.jpg',
+    title: product.name,
+    subtitle: 'Ürün Vitrini',
+    description: limitedDescription,
+    specs: limitedSpecs
+  };
+};
+
 export default function HeroSlider() {
   const [mounted, setMounted] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [slides] = useState<Slide[]>(DEFAULT_SLIDES);
+  const [slides, setSlides] = useState<Slide[]>(DEFAULT_SLIDES);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Ürünleri yükle ve rastgele 5 tanesini seç
+  useEffect(() => {
+    const fetchRandomProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        
+        if (data.success) {
+          // Sadece "products" tipindeki ürünleri filtrele
+          const productsOnly = data.products.filter((p: Product) => p.type === 'products' && !p.campaign);
+          
+          // Rastgele 5 ürün seç
+          const randomProducts = getRandomProducts(productsOnly, 5);
+          
+          // Ürünleri slide formatına dönüştür
+          const productSlides = randomProducts.map(productToSlide);
+          
+          setSlides(productSlides.length > 0 ? productSlides : DEFAULT_SLIDES);
+        }
+      } catch (error) {
+        console.error('Ürünler yüklenirken hata:', error);
+        setSlides(DEFAULT_SLIDES);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Rastgele ürün seçme fonksiyonu
+    const getRandomProducts = (products: Product[], count: number) => {
+      const shuffled = [...products].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    };
+
+    if (mounted) {
+      fetchRandomProducts();
+    }
+  }, [mounted]);
 
   useEffect(() => {
     setMounted(true);
@@ -159,7 +220,7 @@ export default function HeroSlider() {
               className="flex flex-wrap gap-4 pt-4"
             >
               <Link 
-                href="/urunler" 
+                href="/urunler?filter=urunler" 
                 className="group bg-primary hover:bg-primary-600 text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 inline-flex items-center gap-2 shadow-lg shadow-primary/25 relative overflow-hidden"
               >
                 <span className="relative z-10">Ürünlerimizi İnceleyin</span>
@@ -177,21 +238,6 @@ export default function HeroSlider() {
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg" />
               </Link>
             </motion.div>
-
-            {/* Teknik Özellikler */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="grid grid-cols-3 gap-4 pt-8"
-            >
-              {slides[activeIndex].specs.map((spec, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 hover:bg-white/10 transition-colors">
-                  <div className="text-sm text-white/60">{spec.label}</div>
-                  <div className="text-lg font-semibold text-white">{spec.value}</div>
-                </div>
-              ))}
-            </motion.div>
           </div>
 
           {/* Sağ Taraf - Slider */}
@@ -203,81 +249,82 @@ export default function HeroSlider() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <Swiper
-              modules={[Autoplay, EffectFade, Navigation, Pagination]}
-              effect="fade"
-              speed={800}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-                type: 'bullets',
-              }}
-              navigation={{
-                prevEl: '.custom-prev',
-                nextEl: '.custom-next',
-              }}
-              loop
-              className="h-full w-full rounded-2xl overflow-hidden group"
-              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={slide.id} className="relative">
-                  <Link href={`/urunler/${slide.id}`} className="block h-full">
-                    <div className="relative h-full rounded-2xl overflow-hidden">
-                      <Image
-                        src={slide.image}
-                        alt={slide.title}
-                        fill
-                        className="object-cover"
-                        priority={index === 0}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-8">
-                        <p className="text-primary-300 text-sm uppercase tracking-wider font-medium mb-2">{slide.subtitle}</p>
-                        <h3 className="text-white text-2xl font-bold leading-tight mb-2">{slide.title}</h3>
-                        <p className="text-white/70 text-base font-medium max-w-xl mb-4">{slide.description}</p>
-                        <div className="flex gap-6">
-                          {slide.specs.slice(0, 3).map((spec, specIndex) => (
-                            <div key={specIndex} className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3">
-                              <div className="text-white/60 text-sm mb-1">{spec.label}</div>
-                              <div className="text-white font-semibold">{spec.value}</div>
-                            </div>
-                          ))}
+            {isLoading ? (
+              <div className="h-full w-full rounded-2xl overflow-hidden bg-gray-800 flex items-center justify-center">
+                <div className="animate-pulse flex flex-col items-center">
+                  <div className="h-8 w-64 bg-gray-700 rounded mb-4"></div>
+                  <div className="h-4 w-48 bg-gray-700 rounded"></div>
+                </div>
+              </div>
+            ) : (
+              <Swiper
+                modules={[Autoplay, EffectFade, Navigation, Pagination]}
+                effect="fade"
+                speed={800}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                  type: 'bullets',
+                }}
+                navigation={{
+                  prevEl: '.custom-prev',
+                  nextEl: '.custom-next',
+                }}
+                loop
+                className="h-full w-full rounded-2xl overflow-hidden group"
+              >
+                {slides.map((slide, index) => (
+                  <SwiperSlide key={slide.id} className="relative">
+                    <Link href={`/urunler/${slide.id}`} className="block h-full">
+                      <div className="relative h-full rounded-2xl overflow-hidden">
+                        <Image
+                          src={slide.image}
+                          alt={slide.title}
+                          fill
+                          className="object-cover"
+                          priority={index === 0}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-8">
+                          <p className="text-primary-300 text-sm uppercase tracking-wider font-medium mb-2">{slide.subtitle}</p>
+                          <h3 className="text-white text-2xl font-bold leading-tight mb-2">{slide.title}</h3>
+                          <p className="text-white/70 text-base font-medium max-w-xl mb-4">{slide.description}</p>
+                          <div className="flex gap-6 flex-wrap">
+                            {slide.specs.slice(0, 3).map((spec, specIndex) => (
+                              <div key={specIndex} className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3">
+                                <div className="text-white/60 text-sm mb-1">{spec.label}</div>
+                                <div className="text-white font-semibold">{spec.value}</div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                </SwiperSlide>
-              ))}
+                    </Link>
+                  </SwiperSlide>
+                ))}
 
-              {/* Custom Navigation */}
-              <motion.button 
-                animate={{ opacity: isHovered ? 1 : 0 }}
-                className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </motion.button>
-              <motion.button 
-                animate={{ opacity: isHovered ? 1 : 0 }}
-                className="custom-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </motion.button>
-
-              {/* Slide Counter */}
-              <div className="absolute bottom-8 right-8 z-10 text-white font-medium">
-                <span className="text-2xl">{(activeIndex + 1).toString().padStart(2, '0')}</span>
-                <span className="mx-2 text-white/50">/</span>
-                <span className="text-white/50">{slides.length.toString().padStart(2, '0')}</span>
-              </div>
-            </Swiper>
+                {/* Custom Navigation */}
+                <motion.button 
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </motion.button>
+                <motion.button 
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  className="custom-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </motion.button>
+              </Swiper>
+            )}
           </motion.div>
         </div>
       </div>

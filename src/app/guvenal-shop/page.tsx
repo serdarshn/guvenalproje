@@ -180,13 +180,14 @@ export default function GuvenalShopPage() {
               </div>
 
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/guvenal-shop.jpg"
+                    src="/images/Hakkimizda/hakkimizdafoto2.jpg"
                     alt="Güvenal Shop"
                     fill
-                    className="object-cover"
+                    className="object-contain rounded-2xl"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-2xl"></div>
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-xl">
                   <div className="flex items-center gap-4">

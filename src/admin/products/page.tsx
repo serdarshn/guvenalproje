@@ -105,6 +105,11 @@ export default function AdminProducts() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               >
                 <option value="all">Tümü</option>
+                <optgroup label="Dalma Erozyon Tezgahları">
+                  <option value="best-edm">BEST EDM</option>
+                  <option value="cift-kafali-dalma-erezyon">ÇİFT KAFALI DALMA EREZYON</option>
+                  <option value="king-edm">KING EDM</option>
+                </optgroup>
                 <option value="torna">Torna</option>
                 <option value="isleme">İşleme</option>
                 <option value="freze">Freze</option>

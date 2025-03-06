@@ -125,7 +125,7 @@ export default function CareerSection() {
                 <div className="relative z-10 bg-white p-4 rounded-2xl shadow-xl rotate-3 transform hover:rotate-0 transition-transform duration-500">
                   <div className="aspect-[4/3] rounded-xl overflow-hidden relative">
                     <Image
-                      src="/images/career.jpg"
+                      src="/images/kariyer.webp"
                       alt="Kariyer Fırsatları"
                       fill
                       className="object-cover"

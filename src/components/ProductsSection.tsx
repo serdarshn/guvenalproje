@@ -9,149 +9,86 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Kategoriler
 const categories = [
   {
-    id: 'cnc-double-kolon',
-    name: 'CNC Double Kolon Dik İşleme Merkezi',
-    slug: 'cnc-double-kolon',
-    subcategories: [
-      { name: 'CNC Double Kolon', slug: 'cnc-double-kolon' }
-    ]
+    id: 'cnc-dik-isleme',
+    name: 'CNC Dik İşleme Merkezleri',
+    slug: 'cnc-dik-isleme'
   },
   {
     id: 'dalma-erozyon',
     name: 'Dalma Erozyon Tezgahları',
-    slug: 'dalma-erozyon',
-    subcategories: [
-      { name: 'BEST EDM', slug: 'best-edm' },
-      { name: 'KING EDM', slug: 'king-edm' },
-      { name: 'ÇİFT KAFALI DALMA EREZYON', slug: 'cift-kafali-dalma-erezyon' }
-    ]
+    slug: 'dalma-erozyon'
   },
   {
     id: 'kalipci-freze',
     name: 'Kalıpçı Freze Tezgahları',
-    slug: 'kalipci-freze',
-    subcategories: [
-      { name: 'KİNG', slug: 'king' },
-      { name: 'JETCO', slug: 'jetco' },
-      { name: 'KG SUPER', slug: 'kg-super' }
-    ]
+    slug: 'kalipci-freze'
   },
   {
     id: 'universal-kalipci-freze',
     name: 'Üniversal Kalıpçı Freze Tezgahları',
-    slug: 'universal-kalipci-freze',
-    subcategories: [
-      { name: 'KİNG', slug: 'king' },
-      { name: 'KİNG YSM', slug: 'king-ysm' },
-      { name: 'KG SUPER', slug: 'kg-super' }
-    ]
+    slug: 'universal-kalipci-freze'
   },
   {
     id: 'koc-kafa-universal-freze',
     name: 'Koç Kafa Universal Freze',
-    slug: 'koc-kafa-universal-freze',
-    subcategories: []
+    slug: 'koc-kafa-universal-freze'
   },
   {
     id: 'taslama',
     name: 'Taşlama Tezgahları',
-    slug: 'taslama',
-    subcategories: [
-      { name: 'KİNG GRINDER', slug: 'king-grinder' }
-    ]
+    slug: 'taslama'
   },
   {
-    id: 'torna',
-    name: 'Torna Tezgahları',
-    slug: 'torna',
-    subcategories: [
-      { name: 'KING', slug: 'king' },
-      { name: 'JETCO', slug: 'jetco' },
-      { name: 'TOS', slug: 'tos' }
-    ]
+    id: 'universal-torna',
+    name: 'Universal Torna Tezgahları',
+    slug: 'universal-torna'
   },
   {
     id: 'masa-ustu-torna',
     name: 'Masa Üstü Torna Tezgahları',
-    slug: 'masa-ustu-torna',
-    subcategories: []
+    slug: 'masa-ustu-torna'
   },
   {
     id: 'radyal-matkap',
     name: 'Radyal Matkap Tezgahları',
-    slug: 'radyal-matkap',
-    subcategories: [
-      { name: 'TAILIFT', slug: 'tailift' },
-      { name: 'KG SUPER', slug: 'kg-super' }
-    ]
+    slug: 'radyal-matkap'
   },
   {
     id: 'sutunlu-matkap',
-    name: 'Sütunlu Matkap Tezgahları',
-    slug: 'sutunlu-matkap',
-    subcategories: [
-      { name: 'KING', slug: 'king' },
-      { name: 'JETCO', slug: 'jetco' },
-      { name: 'ŞAHİN', slug: 'sahin' },
-      { name: 'BOYKA', slug: 'boyka' }
-    ]
+    name: 'Şanzımanlı & Kayışlı Sütunlu Matkaplar',
+    slug: 'sutunlu-matkap'
   },
   {
     id: 'testere',
-    name: 'Testere Tezgahları',
-    slug: 'testere',
-    subcategories: [
-      { name: 'KING TYC', slug: 'king-tyc' },
-      { name: 'JETCO', slug: 'jetco' },
-      { name: 'KESMAK', slug: 'kesmak' }
-    ]
+    name: 'Şerit Testere Makineleri',
+    slug: 'testere'
   },
   {
     id: 'kilavuz-cekme',
     name: 'Kılavuz Çekme Tezgahları',
-    slug: 'kilavuz-cekme',
-    subcategories: [
-      { name: 'KING TAPPING', slug: 'king-tapping' }
-    ]
+    slug: 'kilavuz-cekme'
   },
   {
     id: 'makina-aksesuarlari',
     name: 'Makina Aksesuarları',
-    slug: 'makina-aksesuarlari',
-    subcategories: [
-      { name: 'Otomatik Yağlama', slug: 'otomatik-yaglama' },
-      { name: 'Filtre', slug: 'filtre' },
-      { name: 'Alıgn Motor', slug: 'align-motor' },
-      { name: 'Manuel Yağlama', slug: 'manuel-yaglama' },
-      { name: 'Havalı Çektirme', slug: 'havali-cektirme' },
-      { name: 'Erozyon Sıvısı', slug: 'erozyon-sivisi' },
-      { name: 'Kriko', slug: 'kriko' },
-      { name: 'System 3R', slug: 'system-3r' },
-      { name: 'Pens Takımı', slug: 'pens-takimi' },
-      { name: 'Bağlama Seti', slug: 'baglama-seti' },
-      { name: 'Mengene', slug: 'mengene' },
-      { name: 'Yan Tarama Kafası', slug: 'yan-tarama-kafasi' },
-      { name: 'Dijital Sistem', slug: 'dijital-sistem' },
-      { name: 'Yük Taşıma Arabası', slug: 'yuk-tasima-arabasi' },
-      { name: 'Korumalık', slug: 'korumalik' }
-    ]
+    slug: 'makina-aksesuarlari'
   }
 ];
 
 // Ana kategorileri grupla
 const mainCategories = [
   { id: 'all', name: 'Tüm Kategoriler' },
-  { id: 'cnc', name: 'CNC Double Kolon Dik İşleme Merkezi', slugs: ['cnc-double-kolon'] },
+  { id: 'cnc', name: 'CNC Dik İşleme Merkezleri', slugs: ['cnc-dik-isleme'] },
   { id: 'erozyon', name: 'Dalma Erozyon Tezgahları', slugs: ['dalma-erozyon'] },
   { id: 'kalipci-freze', name: 'Kalıpçı Freze Tezgahları', slugs: ['kalipci-freze'] },
   { id: 'universal-freze', name: 'Üniversal Kalıpçı Freze Tezgahları', slugs: ['universal-kalipci-freze'] },
   { id: 'koc-kafa', name: 'Koç Kafa Universal Freze', slugs: ['koc-kafa-universal-freze'] },
   { id: 'taslama', name: 'Taşlama Tezgahları', slugs: ['taslama'] },
-  { id: 'torna', name: 'Torna Tezgahları', slugs: ['torna'] },
+  { id: 'torna', name: 'Torna Tezgahları', slugs: ['universal-torna'] },
   { id: 'masa-ustu-torna', name: 'Masa Üstü Torna Tezgahları', slugs: ['masa-ustu-torna'] },
   { id: 'radyal-matkap', name: 'Radyal Matkap Tezgahları', slugs: ['radyal-matkap'] },
-  { id: 'sutunlu-matkap', name: 'Sütunlu Matkap Tezgahları', slugs: ['sutunlu-matkap'] },
-  { id: 'testere', name: 'Testere Tezgahları', slugs: ['testere'] },
+  { id: 'sutunlu-matkap', name: 'Şanzımanlı & Kayışlı Sütunlu Matkaplar', slugs: ['sutunlu-matkap'] },
+  { id: 'testere', name: 'Şerit Testere Makineleri', slugs: ['testere'] },
   { id: 'kilavuz', name: 'Kılavuz Çekme Tezgahları', slugs: ['kilavuz-cekme'] },
   { id: 'aksesuarlar', name: 'Makina Aksesuarları', slugs: ['makina-aksesuarlari'] }
 ];
@@ -183,15 +120,14 @@ export default function ProductsSection() {
     } else {
       const selectedMainCategory = mainCategories.find(cat => cat.id === activeTab);
       if (selectedMainCategory?.slugs) {
-        // İlgili kategoriyi bul
-        const categoryIndex = categories.findIndex(category => 
-          selectedMainCategory.slugs.includes(category.slug)
-        );
+        const filteredCats = categories.filter(category => {
+          return selectedMainCategory.slugs.some(slug => category.slug === slug);
+        });
+        setFilteredCategories(filteredCats);
         
-        if (categoryIndex !== -1 && emblaApi) {
-          // Slider'ı ilgili kategoriye kaydır
-          emblaApi.scrollTo(categoryIndex);
-          setSelectedIndex(categoryIndex);
+        if (emblaApi && filteredCats.length > 0) {
+          emblaApi.scrollTo(0);
+          setSelectedIndex(0);
         }
       }
     }
@@ -351,32 +287,11 @@ export default function ProductsSection() {
 
                               {/* Card Content */}
                               <div className="p-6 flex-1 flex flex-col relative bg-gradient-to-br from-gray-800/40 via-gray-800/40 to-gray-900/40">
-                                {/* Subcategories */}
-                                {category.subcategories.length > 0 && (
-                                  <div className="space-y-2.5 flex-1">
-                                    {category.subcategories.slice(0, 3).map((sub) => (
-                                      <div key={sub.slug} className="flex items-center gap-2.5 text-gray-400 group-hover:text-gray-300 transition-colors">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-primary-400/40 group-hover:bg-primary-400/60 transition-colors"></div>
-                                        <span className="text-sm">{sub.name}</span>
-                                      </div>
-                                    ))}
-                                    {category.subcategories.length > 3 && (
-                                      <div className="flex items-center gap-2.5 text-gray-400 group-hover:text-gray-300 transition-colors">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-primary-400/40 group-hover:bg-primary-400/60 transition-colors"></div>
-                                        <span className="text-sm">+{category.subcategories.length - 3} daha fazla</span>
-                                      </div>
-                                    )}
-                                  </div>
-                                )}
-
-                                {/* Card Footer */}
-                                <div className="pt-4 mt-auto border-t border-white/5">
-                                  <div className="flex items-center justify-between text-primary-400 font-medium group-hover:gap-2 transition-all">
-                                    <span className="text-sm">Detaylı İncele</span>
-                                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
-                                  </div>
+                                <div className="flex items-center justify-between text-primary-400 font-medium group-hover:gap-2 transition-all">
+                                  <span className="text-sm">Detaylı İncele</span>
+                                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                  </svg>
                                 </div>
                               </div>
 
@@ -445,7 +360,7 @@ export default function ProductsSection() {
           {/* Bottom CTA */}
           <div className="mt-10 text-center">
             <Link
-              href="/urunler"
+              href="/urunler?filter=urunler"
               className="inline-flex items-center gap-2 bg-white/10 text-white hover:bg-white/20 px-8 py-4 rounded-xl font-medium transition-colors"
             >
               Tüm Ürünlerimizi İnceleyin

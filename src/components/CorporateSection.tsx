@@ -115,7 +115,7 @@ export default function CorporateSection() {
               <div className="relative z-10 bg-white p-4 rounded-2xl shadow-xl overflow-hidden group">
                 <div className="aspect-[16/9] rounded-xl overflow-hidden relative">
                   <Image
-                    src="/images/corporate.jpg"
+                    src="/images/Hakkimizda/hakkimizdafoto.jpg"
                     alt="Güvenal Makina"
                     fill
                     className="object-cover transform group-hover:scale-105 transition-transform duration-500"

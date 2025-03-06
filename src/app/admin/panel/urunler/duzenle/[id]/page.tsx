@@ -360,6 +360,47 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Kategori
+                </label>
+                <select
+                  value={formData.category}
+                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent"
+                >
+                  <option value="">Kategori Seçin</option>
+                  {formData.type === 'products' && (
+                    <>
+                      <option value="cnc-double">CNC Double Kolon Dik İşleme Merkezi</option>
+                      <option value="dalma-erozyon">Dalma Erozyon Tezgahları</option>
+                      <option value="kalipci-freze">Kalıpçı Freze Tezgahları</option>
+                      <option value="universal-kalipci-freze">Üniversal Kalıpçı Freze Tezgahları</option>
+                      <option value="koc-kafa-freze">Koç Kafa Universal Freze</option>
+                      <option value="taslama">Taşlama Tezgahları</option>
+                      <option value="universal-torna">Universal Torna Tezgahları</option>
+                      <option value="masa-ustu-torna">Masa Üstü Torna Tezgahları</option>
+                      <option value="radyal-matkap">Radyal Matkap Tezgahları</option>
+                      <option value="sutunlu-matkap">Şanzımanlı & Kayışlı Sütunlu Matkaplar</option>
+                      <option value="testere">Testere Tezgahları</option>
+                      <option value="kilavuz">Kılavuz Çekme Tezgahları</option>
+                    </>
+                  )}
+                  {formData.type === 'used' && (
+                    <option value="all">Tüm İkinci El Ürünler</option>
+                  )}
+                  {formData.type === 'spare' && (
+                    <option value="all">Tüm Yedek Parçalar</option>
+                  )}
+                  {formData.type === 'accessories' && (
+                    <option value="all">Tüm Aksesuarlar</option>
+                  )}
+                  {formData.type === 'campaign' && (
+                    <option value="all-campaigns">Tüm Kampanyalar</option>
+                  )}
+                </select>
+              </div>
+
               {formData.type !== 'campaign' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
